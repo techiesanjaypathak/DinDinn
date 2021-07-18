@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import Combine
 
 class ItemTableViewCell: UITableViewCell {
 
@@ -18,9 +19,11 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var itemPriceButton: DDAddToCartButton!
     @IBOutlet weak var itemDescription: UILabel!
     @IBOutlet weak var cellBGView: UIView!
+    var addItemPublisher = PassthroughSubject<ItemInfo,Never>()
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        addItemPublisher = PassthroughSubject<ItemInfo,Never>()
         itemImageView.sd_cancelCurrentImageLoad()
         itemImageView.image = nil
     }
@@ -58,12 +61,6 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     @IBAction func addItem(_ sender: Any) {
-        if let oldItem = RealmHelper.shared.fetchObject(ofType: Item.self, forPrimaryKey: itemInfo.id){
-            RealmHelper.shared.defaultRealm.beginWrite()
-            oldItem.quantity += 1
-            try? RealmHelper.shared.defaultRealm.commitWrite()
-        } else {
-            RealmHelper.shared.asyncSave(Item.getItem(from: itemInfo))
-        }
+        addItemPublisher.send(itemInfo)
     }
 }

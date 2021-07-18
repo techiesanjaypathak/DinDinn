@@ -16,6 +16,7 @@ protocol ProductView:class {
 
 protocol ProductPresentation:class {
     func populateProducts()
+    func addItem(itemInfo:ItemInfo)
 }
 
 protocol ProductScreenDelegate {
@@ -27,6 +28,7 @@ protocol ProductUseCase:class {
     func fetchPizzas()
     func fetchSushis()
     func fetchDrinks()
+    func addToCart(item:ItemInfo)
 }
 
 protocol ProductInteractorOutput:class{

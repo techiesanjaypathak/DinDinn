@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class ProductViewController: UIViewController {
     
@@ -32,6 +33,8 @@ class ProductViewController: UIViewController {
     var sushiDataSource: UITableViewDiffableDataSource<SushiSection,Sushi>!
     var drinkDataSource: UITableViewDiffableDataSource<DrinkSection,Drink>!
     
+    var addItemTokens = Set<AnyCancellable>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,18 +51,27 @@ class ProductViewController: UIViewController {
         pizzaDataSource = UITableViewDiffableDataSource<PizzaSection,Pizza>(tableView: pizzaTable, cellProvider: { (tableView, indexPath, pizza) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as? ItemTableViewCell else { return UITableViewCell()}
             cell.configureCell(withItemInfo: ItemInfo.getItemInfo(from: pizza))
+            cell.addItemPublisher.sink { (itemInfo) in
+                self.presenter?.addItem(itemInfo: itemInfo)
+            }.store(in: &self.addItemTokens)
             return cell
         })
         
         sushiDataSource = UITableViewDiffableDataSource<SushiSection,Sushi>(tableView: sushiTable, cellProvider: { (tableView, indexPath, sushi) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as? ItemTableViewCell else { return UITableViewCell()}
             cell.configureCell(withItemInfo: ItemInfo.getItemInfo(from: sushi))
+            cell.addItemPublisher.sink { (itemInfo) in
+                self.presenter?.addItem(itemInfo: itemInfo)
+            }.store(in: &self.addItemTokens)
             return cell
         })
         
         drinkDataSource = UITableViewDiffableDataSource<DrinkSection,Drink>(tableView: drinksTable, cellProvider: { (tableView, indexPath, drink) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as? ItemTableViewCell else { return UITableViewCell()}
             cell.configureCell(withItemInfo: ItemInfo.getItemInfo(from: drink))
+            cell.addItemPublisher.sink { (itemInfo) in
+                self.presenter?.addItem(itemInfo: itemInfo)
+            }.store(in: &self.addItemTokens)
             return cell
         })
     }

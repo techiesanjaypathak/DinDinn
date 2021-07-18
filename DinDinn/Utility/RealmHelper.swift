@@ -47,10 +47,10 @@ class RealmHelper {
     //MARK:- Create
 
     /** All save operations by default done in asynchronus manner**/
-    func asyncSave<T: Object>(_ realmObject: T) {
+    func syncSave<T: Object>(_ realmObject: T) {
         let backgroundQueue = DispatchQueue(label: ".realm", qos: .background)
         var defaultRealm: Realm?
-        backgroundQueue.async {
+        backgroundQueue.sync {
             autoreleasepool {
                 do {
                     defaultRealm = try Realm(configuration: self.configuration)

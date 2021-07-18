@@ -20,6 +20,9 @@ extension ProductPresenter: ProductPresentation {
         interactor?.fetchSushis()
         interactor?.fetchDrinks()
     }
+    func addItem(itemInfo:ItemInfo){
+        interactor?.addToCart(item:itemInfo)
+    }
 }
 
 extension ProductPresenter: ProductInteractorOutput {

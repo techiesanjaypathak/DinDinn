@@ -41,10 +41,11 @@ class DashboardViewController: DDViewController {
         case "showCartSegue":
             guard let cartViewController = segue.destination as? CartViewController else { return }
             cartViewController.presenter = CartRouter.setUpPresenter(with: cartViewController)
-            break
         case "productsSegue":
             guard let productViewController = segue.destination as? ProductViewController else { return }
             productViewController.presenter = ProductRouter.setUpPresenter(with: productViewController)
+        case "heroSegue":
+            break
         default:
             debugPrint("Unhandled segue encountered")
         }
