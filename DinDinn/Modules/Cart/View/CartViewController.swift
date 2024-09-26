@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CartViewController: UIViewController {
+public class CartViewController: UIViewController {
     
     var presenter: CartPresentation?
     
