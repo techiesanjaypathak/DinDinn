@@ -53,9 +53,9 @@ Pod::Spec.new do |spec|
   #  profile URL.
   #
 
-  spec.author             = { "Sanjay Pathak" => "sanjay.pathak@idrive.com" }
+  spec.author             = { "Sanjay Pathak" => "techiesanjaypathak@gmail.com" }
   # Or just: spec.author    = "Sanjay Pathak"
-  # spec.authors            = { "Sanjay Pathak" => "sanjay.pathak@idrive.com" }
+  # spec.authors            = { "Sanjay Pathak" => "techiesanjaypathak@gmail.com" }
   # spec.social_media_url   = "https://twitter.com/Sanjay Pathak"
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -92,8 +92,8 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "Classes/**/*.{h,m}", "DinDinn/**/*.swift"
-  spec.exclude_files = "Classes/Exclude"
+  spec.source_files  = "DinDinn/**/*.swift"
+  # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
 
